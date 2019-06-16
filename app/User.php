@@ -28,4 +28,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * get all packages by user
+     */
+    public function accounts() {
+        return $this->hasMany('App\UserPackage');
+    }
+
+    /**
+     * get report
+     */
+    public function reports() {
+        return $this->hasMany('App\Report');
+    }
+
 }

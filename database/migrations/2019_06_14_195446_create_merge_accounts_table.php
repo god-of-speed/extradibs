@@ -15,6 +15,9 @@ class CreateMergeAccountsTable extends Migration
     {
         Schema::create('merge_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('number');
+            $table->dateTime('startDate');
             $table->timestamps();
         });
     }
