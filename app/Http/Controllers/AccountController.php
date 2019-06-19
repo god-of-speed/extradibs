@@ -86,101 +86,6 @@ class AccountController extends Controller
 
 
 
-    /**
-     * list all merge
-     */
-    public function allPayee(Request $request) {
-        //check
-        if(Request::ajax()) {
-            if(Auth::guard()->user()) {
-                if(Auth::guard()->user()->role == 'admin') {
-                    //get p and s
-                    $p = $request->query('p');
-                    if($p) {
-                        $p = $p;
-                    }else{
-                        $p = ceil(count(UserPackage::where([
-                            ['paid',false],
-                            ['merged',false]
-                        ])
-                        ->get()
-                    )/30);
-                    }
-                    $s = $request->query('s');
-                    if($s) {
-                        $s = $s;
-                    }else{
-                        $s = 0;
-                    }
-                    $accounts = UserPackage::where([
-                        ['paid',false],
-                        ['merged',false]
-                    ])
-                    ->skip($s)
-                    ->take(30)
-                    ->orderBy('updatedDate','desc')
-                    ->get();
-                    return response()->json([
-                        'accounts' => $accounts
-                    ],200);
-                }
-                return response()->json('Unauthorized',401);
-            }
-            return response()->json('Unauthenticated',403);
-        }
-        return redirect('/');
-    }
-
-
-
-
-
-    /*
-     * list all unMerged
-     */
-    public function allUnMerged(Request $request) {
-        //check
-        if(Request::ajax()) {
-            if(Auth::guard()->user()) {
-                if(Auth::guard()->user()->role == 'admin') {
-                    //get p and s
-                    $p = $request->query('p');
-                    if($p) {
-                        $p = $p;
-                    }else{
-                        $p = ceil(count(UserPackage::where([
-                            ['umMerged',true]
-                        ])
-                        ->get()
-                    )/30);
-                    }
-                    $s = $request->query('s');
-                    if($s) {
-                        $s = $s;
-                    }else{
-                        $s = 0;
-                    }
-                    $accounts = UserPackage::where([
-                        ['umMerged',true]
-                    ])
-                    ->skip($s)
-                    ->take(30)
-                    ->orderBy('updatedDate','desc')
-                    ->get();
-                    return response()->json([
-                        'accounts' => $accounts
-                    ],200);
-                }
-                return response()->json('Unauthorized',401);
-            }
-            return response()->json('Unauthenticated',403);
-        }
-        return redirect('/');
-    }
-
-
-
-
 
     /**
      * upload proof of payment
@@ -192,7 +97,28 @@ class AccountController extends Controller
                 'image' => 'required|image|file|max:3000|mimetypes:image/png,image/jpg'
             ]);
             if($request->image) {
-
+                $filename = $generatorService->generateRandomString();
+                //create directory
+                $dir = public_path()."/images/proof_of_payment";
+                if(!file_exists($dir)) {
+                    mkdir($dir);
+                }
+                $request->image->move($dir,$filename.'.'.$request->image->guessExtension());
+                //save image
+                $filename = "/images/proof_of_payment/".$filename.'.'.$request->image->guessExtension();
+                //get merge
+                $merge = $request->merge;
+                $merge = $merge == null && !is_int($merge) ? false : Merge::find($merge);
+                if($merge) {
+                    //update
+                    $update = $merge->update([
+                        'proofOfPayment' => $filename
+                    ]);
+                    return response()->json([
+                        'merge' => $merge
+                    ],200);
+                }
+                return response()->json('Internal server error',500);
             }
         }
         return response()->json('Unauthenticated',403);
@@ -313,5 +239,33 @@ class AccountController extends Controller
             'numberOfInvestments' => (int)$account->numberOfInvestments + 1 
         ]);
         return $account;
+    }
+
+
+
+
+
+    /**
+     * close account
+     */
+    public function closeAccount(Request $request) {
+        //check user
+        if(Auth::guard()->id()) {
+            //get account
+            $account = $request->query('account');
+            $account = $account == null && !is_int($account) ? false : UserPackage::find($account);
+            if($account) {
+                if(Auth::guard()->id() == $account->userId ) {
+                    //update account
+                    $update = $account->update([
+                        'closed' => true
+                    ]);
+                    return response()->json(true,200);
+                }
+                return redirect('/');
+            }
+            return redirect('/');
+        }
+        return redirect('/');
     }
 }

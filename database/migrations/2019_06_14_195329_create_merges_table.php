@@ -16,9 +16,9 @@ class CreateMergesTable extends Migration
         Schema::create('merges', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('userPackageId')->unsigned();
-            $table->foreign('userPackageId')->references('id')->on('userPackages');
+            $table->foreign('userPackageId')->references('id')->on('user_packages');
             $table->bigInteger('mergedTo')->unsigned();
-            $table->foreign('mergedTo')->references('id')->on('userPackages');
+            $table->foreign('mergedTo')->references('id')->on('user_packages');
             $table->string('proofOfPayment')->nullable();
             $table->dateTime('startDate');
             $table->boolean('confirmed');

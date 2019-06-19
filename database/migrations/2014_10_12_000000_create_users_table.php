@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('lastName');
             $table->string('username',190)->unique();
             $table->string('password');
+            $table->string('role')->default('user');
             $table->string('image')->nullable();
             $table->string('bankName')->nullable();
             $table->string('accountName')->nullable();
