@@ -123,6 +123,9 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    //log file on heroku
+    'log'=>'errorlog',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
