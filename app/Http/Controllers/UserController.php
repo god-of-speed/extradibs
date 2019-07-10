@@ -14,7 +14,7 @@ class UserController extends Controller
      * 
      */
     public function profilePage() {
-        //get use
+        return view('pages.profile');
     }
 
 

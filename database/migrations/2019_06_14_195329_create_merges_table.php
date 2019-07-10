@@ -21,7 +21,7 @@ class CreateMergesTable extends Migration
             $table->foreign('mergedTo')->references('id')->on('user_packages');
             $table->string('proofOfPayment')->nullable();
             $table->dateTime('startDate');
-            $table->boolean('confirmed');
+            $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
     }

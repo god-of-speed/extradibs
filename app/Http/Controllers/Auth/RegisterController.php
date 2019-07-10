@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Services\GeneratorService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -52,7 +53,12 @@ class RegisterController extends Controller
             'firstName' => ['required', 'string', 'max:255'],
             'lastName' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6'],
+            'phone' => ['required','string','max:12'],
+            'bankName' => ['required','string','max:255'],
+            'accountName' => ['required','string','max:255'],
+            'accountNumber' => ['required','string','max:255'],
+            'referredBy' => ['string','max:255']
         ]);
     }
 
@@ -62,13 +68,37 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $data,GeneratorService $generatorService)
     {
+        if($data['ref']) {
+            //get account with ref
+           $userRef = User::where([
+                'ref' => $data['ref']
+            ])->first();
+            //get sum of user's potential
+            $sum = (int)$userRef->potential + 0.5;
+            if($sum > 100) {
+                $update = $userRef->update([
+                    'potential' => 100
+                ]);
+            }else{
+                $update = $userRef->update([
+                    'potential' => $sum
+                ]);
+            }
+        }
+
         return User::create([
-            'firstName' => $data['firstName'],
-            'lastName' => $data['lastName'],
-            'username' => $data['username'],
+            'firstName' => strtolower($data['firstName']),
+            'lastName' => strtolower($data['lastName']),
+            'username' => strtolower($data['username']),
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'bankName' => strtolower($data['bankName']),
+            'accountName' => strtolower($data['accountName']),
+            'accountNumber' => $data['accountNumber'],
+            'ref' => $generatorService->generateReferralLink(),
+            'referredBy' => $data['ref']
         ]);
     }
 }

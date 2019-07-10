@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class UserPackage extends Model
 {
     //create fillable
-    protected $fillable = ['userId','packageId','paid','merged',
-        'startDate','numberOfInvestments','payers','ref','numberOfReferrals'
+    protected $fillable = ['userId','packageId','accountName','paid','merged','unMerged',
+        'startDate','numberOfInvestments','payers','numberOfReferrals','closed','blocked',
+        'numberOfDays','entry'
     ]; 
 
     /**
      * get user by userId
      */
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','userId');
     }
 
     /**

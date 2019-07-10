@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        //register commands
+        Commands\MergeAccounts::class,
+        Commands\NumberOfDays::class
     ];
 
     /**
@@ -26,6 +28,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('MergeAccounts::check')
+                 ->everyMinute();
+        $schedule->command('NumberOfDays::check')
+                 ->daily();
     }
 
     /**

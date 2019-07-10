@@ -15,7 +15,7 @@ class Merge extends Model
      * get account
      */
     public function account() {
-        return $this->belongsTo('App\UserPackage');
+        return $this->belongsTo('App\UserPackage','userPackageId');
     }
 
     /**

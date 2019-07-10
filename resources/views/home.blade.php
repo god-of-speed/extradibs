@@ -19,6 +19,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
         rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis|Open+Sans+Condensed:300|Playfair+Display|Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="app-assets/css/vendors.css">
@@ -36,12 +37,22 @@
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <style>
+        body{
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        #login a:hover{
+           opacity:0.5 !important;
+        }
+    </style>
     <!-- END Custom CSS-->
     @show
 </head>
 
 <body class="horizontal-layout horizontal-menu 2-columns   menu-expanded" data-open="hover" data-menu="horizontal-menu"
     data-col="2-columns">
+    @section('nav')
     <!-- fixed-top-->
     <nav
         class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-static-top navbar-light navbar-brand-center">
@@ -52,10 +63,10 @@
                             class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
                                 class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="/">
                             <img class="brand-logo" alt="modern admin logo"
                                 src="../../../app-assets/images/logo/logo.png">
-                            <h3 class="brand-text">Modern Admin</h3>
+                            <h3 class="brand-text">Extra Dibs</h3>
                         </a>
                     </li>
                     <li class="nav-item d-md-none">
@@ -145,40 +156,49 @@
                             </div>
                         </li>
                     </ul>
-                    @auth
                     <ul class="nav navbar-nav float-right">
+                        @auth
                         <li class="dropdown dropdown-user nav-item">
                             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                 <span class="mr-1">Hello,
-                                    <span class="user-name text-bold-700">John Doe</span>
+                                <span class="user-name text-bold-700">{{Auth::user()->username}}</span>
                                 </span>
                                 <span class="avatar avatar-online">
+                                    @if(Auth::user()->image) 
+                                    <img src={{Auth::user()->image}}
+                                        alt="avatar"><i></i>
+                                    @else
                                     <img src="../../../app-assets/images/portrait/small/avatar-s-19.png"
-                                        alt="avatar"><i></i></span>
+                                        alt="avatar"><i></i>
+                                    @endif
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i
                                         class="ft-user"></i> Edit Profile</a>
-                                <a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a>
-                                <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a>
-                                <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="/logout"><i
                                         class="ft-power"></i> Logout</a>
                             </div>
                         </li>
+                        @endauth
+                        @guest
+                        <li class="nav-item" id="login">
+                            <a role="button" class="nav-link font-medium-3" style="color:rgb(166, 166, 166);background-color:rgb(13, 32, 59);" href="/login">Login</a>
+                        </li>
+                        @endguest
                     </ul>
-                    @endauth
                 </div>
             </div>
         </div>
     </nav>
+    @show
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     @auth
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-dark navbar-without-dd-arrow navbar-shadow"
         role="navigation" data-menu="menu-wrapper">
         <div class="navbar-container main-menu-content" data-menu="menu-container">
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class="dropdown nav-item" data-menu="dropdown">
-                    <a class="dropdown-toggle nav-link" href="index.html" data-toggle="dropdown"><i
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard"><i
                             class="la la-home"></i>
                         <span>Dashboard</span>
                     </a>
@@ -199,12 +219,12 @@
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <footer class="footer fixed-bottom footer-static footer-light navbar-shadow">
         <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-            <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a
+            <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2019 <a
                     class="text-bold-800 grey darken-2"
-                    href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent" target="_blank">PIXINVENT
+                    href="/" target="_blank">ExtraDibs
                 </a>, All rights reserved. </span>
             <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i
-                    class="ft-heart pink"></i></span>
+                    class="ft-heart pink"></i> from Nigeria</span>
         </p>
     </footer>
     @section('javascripts')

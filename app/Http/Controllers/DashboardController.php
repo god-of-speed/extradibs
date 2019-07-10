@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Merge;
+use App\Package;
 use App\UserPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,15 +20,16 @@ class DashboardController extends Controller
             //get accounts
             $accounts = UserPackage::where([
                 ['userId',$user->id],
-                ['closed',false],
-                ['blocked',false]
+                ['closed',false]
             ])
-            ->orderBy('createdDate','desc')
+            ->orderBy('created_at','desc')
             ->get();
             if(count($accounts) == 0) {
                 return redirect('/');
             }
-            return view('dashboard',['accounts'=>$accounts]);
+            //get packages
+            $packages = Package::get();
+           return view('pages.dashboard',['accounts'=>$accounts,'packages' => $packages]);
         }
         return redirect('/');
     }

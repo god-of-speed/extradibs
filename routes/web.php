@@ -12,3 +12,22 @@
 */
 
 Route::get('/','HomeController@index');
+Route::post('/register','Auth\RegisterController@register');
+Route::get('/package','HomeController@packagePage');
+Route::get('/profile','UserController@profilePage');
+Route::get('/dashboard','DashboardController@dashboardPage');
+Route::get('/account','AccountController@accountPage');
+Route::get('/login','Auth\LoginController@showLoginForm');
+Route::post('/login','Auth\LoginController@login');
+Route::get('/admin','AdminController@adminPage');
+Route::post('/add_package','AdminController@addPackage');
+Route::get('/add_package','AdminController@package');
+Route::get('/admin_table','AdminController@adminTable');
+Route::get('/new-account','AccountController@storeAccount');
+Route::get('/re-invest','AccountController@reInvest');
+Route::get('/close','AccountController@closeAccount');
+Route::get('/logout','Auth\LoginController@logout');
+Route::post('/upload_proof','AccountController@uploadProofOfPayment');
+Route::get('/confirm_payment','AccountController@confirmPayment');
+Route::get('/terms','HomeController@termsPage');
+Route::any('/{str}','HomeController@index')->where('str','.*');

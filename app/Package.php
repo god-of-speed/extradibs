@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     //list fillable
-    protected $fillable = ['name','price','description'];
+    protected $fillable = ['name','price','description','image'];
 
 
     /**
