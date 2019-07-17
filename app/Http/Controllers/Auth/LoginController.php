@@ -49,4 +49,20 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+
+
+
+    /**
+     * login
+     */
+    public function login(Request $request) {
+        //get data
+        $data = $request->only('username','password');
+        $credentials = ['username'=>$data['username'],'password'=>$data['password']];
+        if(Auth::attempt($credentials)) {
+            return redirect('/dashboard');
+        }
+        return redirect('/login');
+    }
+
 }

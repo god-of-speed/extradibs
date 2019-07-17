@@ -51,7 +51,7 @@ Dashboard
     }
 
     .package img {
-        height: 10vw;
+        height: 15vw;
     }
 
     .card-header {
@@ -91,14 +91,14 @@ Dashboard
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
+                                @if(!$account->blocked)
+                                    @if($account->payers == 2)
                                     <li><a class="re-invest" style="background-color:rgb(13, 32, 59);color:rgb(166, 166, 166);" id="invest{{$account->id}}">Re-invest</a></li>
+                                    @endif
                                     <li><a class="close-account" style="background-color: crimson;color:white;" id="close{{$account->id}}"><i class="ft-x"></i></a></li>
+                                @endif
                                 </ul>
                             </div>
-                            {{-- <div class="heading-elements">
-                                <span class="re-invest" id="invest{{$account->id}}" class="badge badge-default">Re-invest</span>
-                                <span class="close-account" id="close{{$account->id}}" class="badge badge-default">Close</span>
-                            </div> --}}
                         </div>
                     </div>
                     <!-- project-info -->
@@ -119,18 +119,21 @@ Dashboard
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-12">
+                        @if(!$account->blocked)
                             <div class="card text-center bg-transparent">
+                        @else
+                            <div class="card text-center bg-danger">
+                        @endif
                                 <div class="card-content">
                                     <div class="card-body pt-3">
                                     <h4 class="card-title left">{{$account->accountName}}</h4>
                                         <p class="card-text">
                                             <span class="span-left">
-                                                Status: <br>
-                                                Counter: 
+                                                Status: @if($account->paid) Paid @else Un-paid @endif
                                             </span>
                                             <span class="span-right">
-                                                Date created: {{$account->created_at}}<br>
-                                                Last update:  {{$account->updated_at}}
+                                                Date created: {{date('d-m-Y', strtotime($account->created_at))}}<br>
+                                                Last update:  {{date('d-m-Y', strtotime($account->updated_at))}}
                                             </span>
                                         </p>
                                     </div>

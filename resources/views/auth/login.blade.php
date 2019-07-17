@@ -43,6 +43,9 @@
     .nav{
         padding:0;
     }
+    .navbar-header{
+            top:0 !important;
+        }
     </style>
 </head>
 
@@ -64,22 +67,24 @@
                             <h3 class="brand-text">Extra Dibs</h3>
                         </a>
                     </li>
-                    <li class="nav-item d-md-none">
-                        <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i
-                                class="la la-ellipsis-v"></i></a>
-                    </li>
                 </ul>
-            </div>
-            <div class="navbar-container">
-                <div class="collapse navbar-collapse justify-content-end" id="navbar-mobile">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link mr-2 nav-link-label" href="/"><i
-                                    class="ficon ft-arrow-left"></i></a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </nav>
+    <div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-dark navbar-without-dd-arrow navbar-shadow"
+        role="navigation" data-menu="menu-wrapper">
+        <div class="navbar-container main-menu-content" data-menu="menu-container">
+            <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link font-medium-3" href="/">
+                    <i class="la la-home"></i>
+                    <span>Home</span></a>
+                </li>
+                @endguest
+            </ul>
+        </div>
+    </div>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <div class="app-content content">
         <div class="content-wrapper">
@@ -88,7 +93,7 @@
             <div class="content-body">
                 <section class="flexbox-container">
                     <div class="col-12 d-flex align-items-center justify-content-center">
-                        <div class="col-md-4 col-10 box-shadow-2 p-0">
+                        <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
                             <div class="card">
                                 <div class="card-header border-0">
                                     <div class="card-title text-center">

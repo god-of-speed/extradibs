@@ -28,7 +28,7 @@ class AccountController extends Controller
             if($package) {
                 if(Auth::guard()->user()->potential) {
                     //get sum
-                    $sum = Auth::guard()->user()->potential + 0.2;
+                    $sum = Auth::guard()->user()->potential + 2;
                     if($sum < 100) {
                         $update = Auth::guard()->user()::update([
                             'potential' => $sum
@@ -322,7 +322,7 @@ class AccountController extends Controller
             if($account) {
                 if(Auth::guard()->user()->potential) {
                     //get sum
-                    $sum = Auth::guard()->user()->potential + 0.6;
+                    $sum = Auth::guard()->user()->potential + 2;
                     if($sum < 100) {
                         $update = Auth::guard()->user()::update([
                             'potential' => $sum

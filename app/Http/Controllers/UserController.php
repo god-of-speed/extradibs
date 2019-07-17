@@ -14,30 +14,58 @@ class UserController extends Controller
      * 
      */
     public function profilePage() {
-        return view('pages.profile');
+        if(Auth::guard()->user()){
+            return view('pages.profile');
+        }
+        return redirect('/login');
+    }
+
+
+
+    /**
+     * show edit page
+     */
+    public function showEditPage() {
+        if(Auth::guard()->user()) {
+            return view('pages.edit_user');
+        }
+        return redirect('/login');
     }
 
 
 
 
     /**
-     * insert bank's details
+     * edit details
      * 
      */
-    public function storeBankDetails (Request $request) {
+    public function edit (Request $request) {
         //check 
         $user = Auth::guard()->user();
+        //validate request
+        $request->validate([
+            'firstName' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'phone' => 'required|string',
+            'bankName' => 'required|string|max:255',
+            'accountName' => 'required|string|max:255',
+            'accountNumber' => 'required|string|max:255'
+        ]);
         if($user) {
-            //get bank details
+            //get details
+            $data = $request->only('firstName','lastName','phone','bankName','accountName','accountNumber');
             $user = $user->update([
-                'bankName' => $request->bankName,
-                "accountName" => $request->accountName,
-                "accountNumber" => $request->accountNumber
+                'firstName' => $data['firstName'],
+                'lastName' => $data['lastName'],
+                'phone' => $data['phone'],
+                'bankName' => $data['bankName'],
+                "accountName" => $data['accountName'],
+                "accountNumber" => $data['accountNumber']
             ]);
             
-            return redirect('dashboard');
+            return redirect('/profile');
         }
-        return redirect('/');
+        return redirect('/login');
     }
 
 
@@ -49,32 +77,29 @@ class UserController extends Controller
      */
     public function uploadProfilePhoto(Request $request,GeneratorService $generatorService) {
         //check
-        if(Auth::guard()->id) {
+        if(Auth::guard()->user()) {
             //validate
             $request->validate([
-                "image" => 'required|image|max:3000|mimetype:image\png,image/jpg'
+                "image" => 'required|image|file|max:6000|mimetypes:image/png,image/jpeg,image/jpg'
             ]);
             //get filename
-            $filename = $generatorService->generateRandomString();
+            $filename = $generatorService->generateRandomString().'.'.$request->image->guessExtension();
             //create directory
             $dir = public_path().'/images/user_profile';
             if(!file_exists($dir)) {
                 mkdir($dir);
             }
             //store the image
-            $request->image->move($dir,$filename.'.'.$request->image->guessExtension());
+            $request->image->move($dir,$filename);
             //get user
             $user = Auth::guard()->user();
             //update
             $update = $user->update([
-                'image' => $filename.'.'.$request->image->guessExtension()
+                'image' => '/images/user_profile/'.$filename
             ]);
-            if(Request::ajax()) {
-                return response()->json(true,200);
-            }
-            return view('profile');
+            return redirect('/profile');
         }
-        return redirect('/');
+        return redirect('/login');
     }
 
 

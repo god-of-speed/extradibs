@@ -73,7 +73,7 @@
                                     <div class="col-md-6">
                                         <h4 class="form-section"><i class="ft-user"></i> Personal Info</h4>
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="firstName">First Name</label>
                                                     <input type="text" id="firstName" class="form-control"
@@ -146,11 +146,17 @@
                                 </div>
                             </div>
                             <div class="form-actions">
+                            <div class="row">
+                                <div class="col-lg-10 col-md-10 col-sm-12">
                                 <input type="checkbox" id="checkTerms" style="margin-right:5px;" class="float-left">
-                                <a href="/terms" class="float-left" style="text-decoration:underline;color:red;">I agree to the terms and <br>conditions of this platform.</a>
-                                <button type="submit" id="save" class="btn btn-primary float-right">
+                                <a href="/terms" class="float-left" style="text-decoration:underline;color:red;">I agree to the terms and <br>conditions of this platform.</a><br>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12">
+                                <button type="submit" id="save" class="btn btn-primary">
                                     <i class="la la-check-square-o"></i> Save
                                 </button>
+                                </div>
+                            </div>
                             </div>
                         </form>
                     </div>

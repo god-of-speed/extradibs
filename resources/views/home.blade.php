@@ -42,8 +42,11 @@
             font-family: 'Source Sans Pro', sans-serif;
         }
 
-        #login a:hover{
+        /* #login a:hover{
            opacity:0.5 !important;
+        } */
+        .navbar-header{
+            top:0 !important;
         }
     </style>
     <!-- END Custom CSS-->
@@ -69,144 +72,64 @@
                             <h3 class="brand-text">Extra Dibs</h3>
                         </a>
                     </li>
-                    <li class="nav-item d-md-none">
-                        <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i
-                                class="la la-ellipsis-v"></i></a>
-                    </li>
                 </ul>
-            </div>
-            <div class="navbar-container content">
-                <div class="collapse navbar-collapse" id="navbar-mobile">
-                    <ul class="nav navbar-nav mr-auto float-left">
-                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs"
-                                href="#"><i class="ft-menu"></i></a></li>
-                        <li class="dropdown nav-item mega-dropdown"><a class="dropdown-toggle nav-link" href="#"
-                                data-toggle="dropdown">Mega</a>
-                            <ul class="mega-dropdown-menu dropdown-menu row">
-                                <li class="col-md-2">
-                                    <h6 class="dropdown-menu-header text-uppercase mb-1"><i
-                                            class="la la-newspaper-o"></i> News</h6>
-                                    <div id="mega-menu-carousel-example">
-                                        <div>
-                                            <img class="rounded img-fluid mb-1"
-                                                src="../../../app-assets/images/slider/slider-2.png"
-                                                alt="First slide"><a class="news-title mb-0" href="#">Poster Frame
-                                                PSD</a>
-                                            <p class="news-content">
-                                                <span class="font-small-2">January 26, 2018</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="col-md-4">
-                                    <h6 class="dropdown-menu-header text-uppercase mb-1"><i
-                                            class="la la-envelope-o"></i> Contact Us</h6>
-                                    <form class="form form-horizontal">
-                                        <div class="form-body">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 form-control-label" for="inputName1">Name</label>
-                                                <div class="col-sm-9">
-                                                    <div class="position-relative has-icon-left">
-                                                        <input class="form-control" type="text" id="inputName1"
-                                                            placeholder="John Doe">
-                                                        <div class="form-control-position pl-1"><i
-                                                                class="la la-user"></i></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 form-control-label"
-                                                    for="inputEmail1">Email</label>
-                                                <div class="col-sm-9">
-                                                    <div class="position-relative has-icon-left">
-                                                        <input class="form-control" type="email" id="inputEmail1"
-                                                            placeholder="john@example.com">
-                                                        <div class="form-control-position pl-1"><i
-                                                                class="la la-envelope-o"></i></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 form-control-label"
-                                                    for="inputMessage1">Message</label>
-                                                <div class="col-sm-9">
-                                                    <div class="position-relative has-icon-left">
-                                                        <textarea class="form-control" id="inputMessage1" rows="2"
-                                                            placeholder="Simple Textarea"></textarea>
-                                                        <div class="form-control-position pl-1"><i
-                                                                class="la la-commenting-o"></i></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 mb-1">
-                                                    <button class="btn btn-info float-right" type="button"><i
-                                                            class="la la-paper-plane-o"></i> Send </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i
-                                    class="ficon ft-search"></i></a>
-                            <div class="search-input">
-                                <input class="input" type="text" placeholder="Explore Modern...">
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav float-right">
-                        @auth
-                        <li class="dropdown dropdown-user nav-item">
-                            <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <span class="mr-1">Hello,
-                                <span class="user-name text-bold-700">{{Auth::user()->username}}</span>
-                                </span>
-                                <span class="avatar avatar-online">
-                                    @if(Auth::user()->image) 
-                                    <img src={{Auth::user()->image}}
-                                        alt="avatar"><i></i>
-                                    @else
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-19.png"
-                                        alt="avatar"><i></i>
-                                    @endif
-                                </span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i
-                                        class="ft-user"></i> Edit Profile</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="/logout"><i
-                                        class="ft-power"></i> Logout</a>
-                            </div>
-                        </li>
-                        @endauth
-                        @guest
-                        <li class="nav-item" id="login">
-                            <a role="button" class="nav-link font-medium-3" style="color:rgb(166, 166, 166);background-color:rgb(13, 32, 59);" href="/login">Login</a>
-                        </li>
-                        @endguest
-                    </ul>
-                </div>
             </div>
         </div>
     </nav>
     @show
     <!-- ////////////////////////////////////////////////////////////////////////////-->
-    @auth
     <div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-dark navbar-without-dd-arrow navbar-shadow"
         role="navigation" data-menu="menu-wrapper">
         <div class="navbar-container main-menu-content" data-menu="menu-container">
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
+                @auth
+                @if(Request::path() == '/profile')
+                <li class="nav-item active">
+                @else
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard"><i
-                            class="la la-home"></i>
-                        <span>Dashboard</span>
+                @endif
+                    <a class="nav-link" href="/profile">
+                        Hello, {{Auth::user()->username}}
                     </a>
                 </li>
+                @endauth
+                @auth
+                @if(Request::path() == '/dashboard')
+                <li class="nav-item active">
+                @else
+                <li class="nav-item">
+                @endif
+                    <a class="nav-link" href="/dashboard">
+                        Dashboard
+                    </a>
+                </li>
+                @endauth
+                @auth
+                @if(Auth::user()->role == 'admin')
+                @if(Request::path() == '/admin_panel')
+                <li class="nav-item active">
+                @else
+                <li class="nav-item">
+                @endif
+                    <a class="nav-link" href="/admin_panel?filter=fresh">
+                        Admin Panel
+                    </a>
+                </li>
+                @endif
+                @endauth
+                @guest
+                @if(Request::path() == '/login')
+                <li class="nav-item active" id="login">
+                @else
+                <li class="nav-item" id="login">
+                @endif
+                    <a class="nav-link font-medium-3" style="color:rgb(166, 166, 166);" href="/login">
+                    Login</a>
+                </li>
+                @endguest
             </ul>
         </div>
     </div>
-    @endauth
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">

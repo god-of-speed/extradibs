@@ -1,6 +1,6 @@
 @extends('home')
 @section('title')
-Account
+{{$account->accountName}}
 @endsection
 @section('styles')
 @parent
@@ -143,10 +143,11 @@ Account
                                     <span class="left-align">
                                         <span>Account Name:</span> {{$account->accountName}}<br>
                                         <span>No. of re-investments:</span> {{$account->numberOfInvestments}}<br>
-                                        <span>No. of referrals:</span> {{$account->numberOfReferrals}}
+                                        <span>No. of referrals:</span> {{$account->numberOfReferrals}}<br>
+                                        <span>Referral link: <a href="/register?package={{$account->packageId}}&ref={{Auth::user()->ref}}">Referral link</a></span>
                                     </span>
                                     <span class="right-align">
-                                            <span>Date created:</span> {{$account->created_at}}<br>
+                                            <span>Date created:</span> {{date('d-m-Y', strtotime($account->created_at))}}<br>
                                             <span>Closed:</span> {{$account->closed == true? 'true':'false'}}<br>
                                             <span>Blocked:</span> {{$account->blocked == true? 'true':'false'}}
                                     </span>

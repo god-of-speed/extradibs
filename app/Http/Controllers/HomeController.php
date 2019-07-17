@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -11,6 +12,9 @@ class HomeController extends Controller
      * display the home view
      */
     public function index(Request $request) {
+        if(Auth::guard()->user()) {
+            return redirect('/dashboard');
+        }
         //get packages
         $packages = Package::get();
         return view('pages.home',['packages'=>$packages]);
