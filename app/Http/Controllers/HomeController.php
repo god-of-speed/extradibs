@@ -17,6 +17,7 @@ class HomeController extends Controller
         }
         //get packages
         $packages = Package::get();
+        
         return view('pages.home',['packages'=>$packages]);
     } 
 

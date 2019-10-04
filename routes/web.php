@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/','HomeController@index');
 Route::post('/register','Auth\RegisterController@register');
 Route::get('/package','HomeController@packagePage');
 Route::get('/profile','UserController@profilePage');
@@ -37,4 +36,5 @@ Route::get('/terms','HomeController@termsPage');
 Route::get('/edit_user','UserController@showEditPage');
 Route::post('/edit_user','UserController@edit');
 Route::post('/upload_user_photo','UserController@uploadProfilePhoto');
+Route::get('/','HomeController@index');
 Route::any('/{str}','HomeController@index')->where('str','.*');
